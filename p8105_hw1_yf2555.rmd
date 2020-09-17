@@ -1,7 +1,7 @@
 ---
 title: "p8105_hw1_yf2555"
 author: Yihan Feng 
-output: html_document
+output: github_document
 ---
 
 This is my solution to homework 1. 
@@ -12,9 +12,10 @@ library(tidyverse)
 
 
 # Problem 1
- Create a dataframe with specified elements
+Create a data frame with specified elements
  
-```{r}
+ 
+```{r create_df}
 prob1_df = 
   tibble(
     samp = rnorm(10),
@@ -24,17 +25,68 @@ prob1_df =
   )
 ```
 
+
+```{r take_the_mean}
+mean(pull(prob1_df, samp))
+mean(pull(prob1_df, samp_gt_0))
+mean(pull(prob1_df, char_vec))
+mean(pull(prob1_df, fector_vec))
+```
+
 I can take the mean of numbers and logical, but not character or factor. 
 
-```{r} 
+
+
+```{r apply_as.numeric} 
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
 as.numeric(pull(prob1_df, fector_vec))
 ```
 
-```{r}
+Numbers and logical variables can be converted to numeric, but character or factor variables cannot. Only numeric values can be calculated (like mean), which explains that I can take the mean of numbers and logical variables, but not character or factor variables. 
+
+
+```{r convert_numeric_or_factor}
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
+as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 ```
+
+
+
+# Problem 2
+```{r load_penguins}
+data("penguins", package = "palmerpenguins")
+```
+
+
+*******the data in this dataset, including names / values of important variables
+
+The size of the dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns. 
+
+The mean of flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. 
+
+
+
+
+
+
+Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x); color points using the species variable (adding color = ... inside of aes in your ggplot code should help).
+Export your first scatterplot to your project directory using ggsave
+
+
+```{r scatterplot}
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm), color = penguins$species, na.rm = TRUE) + geom_point()
+```
+
+
+
+
+
+
+
+
+
 
 
