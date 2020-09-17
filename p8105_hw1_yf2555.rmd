@@ -2,6 +2,7 @@
 title: "p8105_hw1_yf2555"
 author: Yihan Feng 
 output: github_document
+ 
 ---
 
 This is my solution to homework 1. 
@@ -82,7 +83,7 @@ data("penguins", package = "palmerpenguins")
 ## scatterplot graphing
 
 ```{r scatterplot}
-ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = "red"), na.rm = TRUE) + geom_point()
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species), na.rm = TRUE) + geom_point()
 ggsave("hw1_penguins_scatterplot.pdf")
 ```
 
