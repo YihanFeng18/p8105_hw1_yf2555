@@ -36,7 +36,6 @@ mean(pull(prob1_df, fector_vec))
 I can take the mean of numbers and logical, but not character or factor. 
 
 
-
 ```{r apply_as.numeric} 
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
@@ -55,36 +54,37 @@ as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 
 
 
+
+
+
 # Problem 2
+
+
+## load the dataset
 ```{r load_penguins}
 data("penguins", package = "palmerpenguins")
 ```
 
 
-*******the data in this dataset, including names / values of important variables
+## description
 
-The size of the dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns. 
+* The dataset includes 8 variables as: `r names(penguins)`. 
+  * `r levels(penguins$species)` are the three species recorded in the dataset. 
+  * The sex is recorded as `r levels(penguins$sex)`. 
+  * The bill length ranges between `r range(penguins$bill_length_mm, na.rm = TRUE)` in millimeters; the bill depth ranges between `r range(penguins$bill_depth_mm, na.rm = TRUE)` in millimeters; the flipper length ranges between `r range(penguins$flipper_length_mm, na.rm = TRUE)` in millimeters; and body mass ranges between `r range(penguins$body_mass_g, na.rm = TRUE)` in grams. 
 
-The mean of flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. 
+* The size of the dataset has `r nrow(penguins)` rows and `r ncol(penguins)` columns. 
+
+* The mean of flipper length is `r mean(penguins$flipper_length_mm, na.rm = TRUE)` mm. 
 
 
 
-
-
-
-Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x); color points using the species variable (adding color = ... inside of aes in your ggplot code should help).
-Export your first scatterplot to your project directory using ggsave
-
+## scatterplot graphing
 
 ```{r scatterplot}
-ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm), color = penguins$species, na.rm = TRUE) + geom_point()
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = "red"), na.rm = TRUE) + geom_point()
+ggsave("hw1_penguins_scatterplot.pdf")
 ```
-
-
-
-
-
-
 
 
 
