@@ -7,47 +7,51 @@ output: github_document
 
 This is my solution to homework 1. 
 
-```{r}
+```{r, warning = FALSE}
 library(tidyverse)
 ```
 
 
 # Problem 1
-Create a data frame with specified elements
- 
- 
+
+## 1. Create a data frame with specified elements
+
 ```{r create_df}
 prob1_df = 
   tibble(
     samp = rnorm(10),
     samp_gt_0 = samp > 0,
     char_vec = c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"),
-    fector_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "high", "high"))
+    factor_vec = factor(c("low", "low", "low", "mod", "mod", "mod", "mod", "high", "high", "high"))
   )
 ```
 
 
-```{r take_the_mean}
+## 2. Try to take the mean of variables
+```{r, results = "hide", warning = FALSE}
 mean(pull(prob1_df, samp))
 mean(pull(prob1_df, samp_gt_0))
 mean(pull(prob1_df, char_vec))
-mean(pull(prob1_df, fector_vec))
+mean(pull(prob1_df, factor_vec))
 ```
 
-I can take the mean of numbers and logical, but not character or factor. 
+I can take the mean of "samp" and "samp_gt_0", but not "char_vec" or "factor_vec". 
 
 
-```{r apply_as.numeric} 
+```{r, results = "hide", warning = FALSE} 
 as.numeric(pull(prob1_df, samp))
 as.numeric(pull(prob1_df, samp_gt_0))
 as.numeric(pull(prob1_df, char_vec))
-as.numeric(pull(prob1_df, fector_vec))
+as.numeric(pull(prob1_df, factor_vec))
 ```
 
-Numbers and logical variables can be converted to numeric, but character or factor variables cannot. Only numeric values can be calculated (like mean), which explains that I can take the mean of numbers and logical variables, but not character or factor variables. 
+The output shows that "samp" and "samp_gt_0" can be converted to numeric, but "char_vec" or "fector_vec" cannot. It is because that "samp" and "samp_gt_0" contain numeric values, so they can be converted; while "char_vec" and "factor_vec" do not contain numeric values, so they cannot be converted to numeric. 
+
+Back to the previous code chunk and conclusion, since only numeric values can be calculated as mean, "samp" and "samp_gt_0", which contain numeric values, can be processed with mean function. Also, because "char_vec" and "factor_vec" do not contain numeric values, so they cannot be processed with mean function. 
 
 
-```{r convert_numeric_or_factor}
+## 3. convert the logical vector
+```{r, warning = FALSE}
 as.numeric(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 as.factor(pull(prob1_df, samp_gt_0)) * pull(prob1_df, samp)
 as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
@@ -61,13 +65,13 @@ as.numeric(as.factor(pull(prob1_df, samp_gt_0))) * pull(prob1_df, samp)
 # Problem 2
 
 
-## load the dataset
+## 1. load the dataset
 ```{r load_penguins}
 data("penguins", package = "palmerpenguins")
 ```
 
 
-## description
+## 2. description of the dataset
 
 * The dataset includes 8 variables as: `r names(penguins)`. 
   * `r levels(penguins$species)` are the three species recorded in the dataset. 
@@ -80,9 +84,9 @@ data("penguins", package = "palmerpenguins")
 
 
 
-## scatterplot graphing
+## 3. scatterplot graphing and save it
 
-```{r scatterplot}
+```{r, warning = FALSE}
 ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species), na.rm = TRUE) + geom_point()
 ggsave("hw1_penguins_scatterplot.pdf")
 ```
